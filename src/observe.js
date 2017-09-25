@@ -14,24 +14,27 @@ class Observe {
     }
 
     this.$callback = callback
-    this.observe(obj)
+    this.observeAll(obj)
   }
 
-  observe (obj, path) {
+  observeAll (obj, path) {
     if (isArray(obj)) {
-      this.createFakeArrayProto(obj, path)
+      this.observeArray(obj, path)
     }
 
-    for (const key in obj) {
-      let oldVal = obj[key]
-      let pathArray = path && path.slice()
+    this.observeObject(obj, path)
+  }
 
+  observeObject (obj, path) {
+    for (const key in obj) {
+      let pathArray = path && path.slice()
       if (pathArray) {
         pathArray.push(key)
       } else {
         pathArray = [key]
       }
 
+      let oldVal = obj[key]
       Object.defineProperty(obj, key, {
         get: () => {
           return oldVal
@@ -39,7 +42,7 @@ class Observe {
         set: (newVal) => {
           if (newVal !== oldVal) {
             if (isObject(newVal)) {
-              this.observe(newVal, pathArray)
+              this.observeAll(newVal, pathArray)
             }
 
             this.$callback(newVal, oldVal, pathArray)
@@ -49,12 +52,12 @@ class Observe {
       })
 
       if (isObject(oldVal)) {
-        this.observe(oldVal, pathArray)
+        this.observeAll(oldVal, pathArray)
       }
     }
   }
 
-  createFakeArrayProto (arr, path) {
+  observeArray (arr, path) {
     const arrayProto = Array.prototype
     const fakeArrayProto = Object.create(arrayProto)
     const arrayMethod = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
@@ -66,7 +69,7 @@ class Observe {
           const oldArray = this.slice()
           const result = arrayProto[method].apply(this, arg)
 
-          self.observe(this, path)
+          self.observeAll(this, path)
           self.$callback(this, oldArray, path)
           return result
         }
