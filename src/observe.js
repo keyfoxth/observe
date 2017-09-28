@@ -1,11 +1,4 @@
-function isObject (v) {
-  const type = typeof v
-  return !!v && type === 'object' || type === 'function'
-}
-
-function isArray (v) {
-  return Array.isArray(v)
-}
+import { isObject, isArray } from './unit'
 
 class Observe {
   constructor (obj, callback) {

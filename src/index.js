@@ -1,16 +1,5 @@
 import Observe from './observe'
-
-function isObject (v) {
-  const type = typeof v
-  return !!v && type === 'object' || type === 'function'
-}
-
-const callback = (newVal, oldVal, path) => {
-  newVal = isObject(newVal) ? JSON.stringify(newVal) : newVal
-  console.log('newVal: ' + newVal)
-  console.log('oldVal: ' + oldVal)
-  console.log('path: ' + path + '\n---')
-}
+import callback from './callback'
 
 const obj = {
   a: 'str_a',
@@ -25,7 +14,9 @@ const obj = {
 
 new Observe(obj, callback)
 
-obj.a = { new: 'new_a' }
+obj.a = {
+  new: 'new_a'
+}
 obj.a.new = 'new_b'
 obj.b = 11
 obj.c = [1, 2, 3, 4]
