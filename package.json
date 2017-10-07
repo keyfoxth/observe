@@ -4,8 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +12,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "eslint-plugin-k": "git+https://github.com/keyfoxth/eslint-plugin-k.git",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3"
   }
