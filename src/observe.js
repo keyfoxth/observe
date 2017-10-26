@@ -1,4 +1,4 @@
-import { isObject, isArray } from './unit'
+import { isObject, isArray } from 'judgment'
 
 class Observe {
   constructor (obj, callback) {

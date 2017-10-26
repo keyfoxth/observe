@@ -15,5 +15,8 @@
     "eslint-plugin-k": "git+https://github.com/keyfoxth/eslint-plugin-k.git",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3"
+  },
+  "dependencies": {
+    "judgment": "git+https://github.com/keyfoxth/judgment.git"
   }
 }

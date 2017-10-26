@@ -1,4 +1,4 @@
-import { isObject } from './unit'
+import { isObject } from 'judgment'
 
 const callback = (newVal, oldVal, path) => {
   newVal = isObject(newVal) ? JSON.stringify(newVal) : newVal
